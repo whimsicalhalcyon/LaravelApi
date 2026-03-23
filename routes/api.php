@@ -6,3 +6,4 @@ use App\Http\Controllers\Api\ReplyController;
 
 Route::apiResource('messages', MessageController::class);
 Route::post('replies', [ReplyController::class, 'store']);
+
