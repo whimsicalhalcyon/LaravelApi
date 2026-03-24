@@ -13,7 +13,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        return Message::with(['user', 'replies'])->get();
+        return Message::with(['replies'])->get();
     }
 
     /**
@@ -44,7 +44,9 @@ class MessageController extends Controller
     public function update(Request $request, string $id)
     {
         $msg = Message::findOrFail($id);
-        $msg->update($request->all());
+        $msg->title;
+        $msg->message;
+        $msg->update();
         return $msg;
     }
 

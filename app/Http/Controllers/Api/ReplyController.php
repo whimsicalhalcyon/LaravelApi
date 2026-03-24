@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Reply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReplyController extends Controller
 {
@@ -12,7 +14,7 @@ class ReplyController extends Controller
      */
     public function index()
     {
-        //
+        return Reply::all();
     }
 
     /**
@@ -20,7 +22,15 @@ class ReplyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reply = new Reply();
+        $reply->title = $request->title;
+        $reply->message = $request->message;
+        $reply->email_reply = $request->email_reply;
+        $reply->message_id = $request->message_id;
+        $reply->user_id = Auth::id();
+        $reply->save();
+        return $reply;
+
     }
 
     /**
@@ -28,7 +38,7 @@ class ReplyController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Reply::with('messages')->findOrFail($id);
     }
 
     /**
@@ -36,7 +46,13 @@ class ReplyController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $rmg = Reply::findOrFail($id);
+        $rmg->title = $request->title;
+        $rmg->message = $request->message;
+        $rmg->email_reply = $request->email_reply;
+        $rmg->message_id = $request->message_id;
+        $rmg->update();
+        return $rmg;
     }
 
     /**
@@ -44,6 +60,7 @@ class ReplyController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Reply::destroy($id);
+        return ['ok'=>true];
     }
 }

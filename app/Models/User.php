@@ -25,13 +25,8 @@ class User extends Authenticatable
 
 
     // отношения для юзера
-    public function messages()
-    {
-        return $this->hasMany(Message::class);
-    }
-
     public function reply() {
-        return $this->hasMany(Message::class);
+        return $this->hasMany(Reply::class);
     }
     /**
      * Get the attributes that should be cast.
