@@ -1,6 +1,4 @@
 <script>
-import {St} from "vite/dist/node/chunks/node.js";
-
 export default {
     props: {
         type: {

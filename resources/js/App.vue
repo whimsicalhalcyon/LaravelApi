@@ -1,8 +1,8 @@
 <script>
 import LinkComponent from "./components/LinkComponent.vue";
 import MenuPanel from "./components/MenuPanel.vue";
-import SlideComponent from "@/components/SlideComponent.vue";
-import InputComponent from "@/components/InputComponent.vue";
+import SlideComponent from "./components/SlideComponent.vue";
+import InputComponent from "./components/InputComponent.vue";
 export default {
     components: {
         InputComponent,
@@ -45,9 +45,15 @@ export default {
         <div class="main w-full p-5">
             <div class="navbar mt-5 mb-3 w-full">
                 <input-component type="text" placeholder="Поиск" name="search" />
-                <input type="text" placeholder="Поиск" class="border border-slate-100 p-2 rounded-md w-1/2">
-                <input type="date" placeholder="Дата" class="border border-slate-100 p-2 rounded-md ms-2">
-                <input type="date" placeholder="Дата" class="border border-slate-100 p-2 rounded-md ms-2">
+
+                <label for="countries" class="block mb-2.5 text-sm font-medium text-heading">Select an option</label>
+                <select id="countries" class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
+                    <option selected>Choose a country</option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                </select>
             </div>
 
             <div class="messages flex">
