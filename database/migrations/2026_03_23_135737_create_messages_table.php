@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('email_send');
             $table->string('message');
             $table->string('status')->default('unread');
             $table->timestamps();

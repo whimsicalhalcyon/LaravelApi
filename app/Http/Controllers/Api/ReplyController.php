@@ -30,7 +30,6 @@ class ReplyController extends Controller
         $reply->user_id = Auth::id();
         $reply->save();
         return $reply;
-
     }
 
     /**

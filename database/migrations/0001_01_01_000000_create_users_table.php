@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('fullname');
             $table->string('login');
-            $table->string('status');
-            $table->string('role')->default('user');
+            $table->string('role')->default('admin');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
