@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('email_send');
             $table->string('message');
+            $table->foreignIdFor(\App\Models\Category::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('status')->default('unread');
             $table->timestamps();
         });

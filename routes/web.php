@@ -3,10 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ReplyController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\NewsController;
 
 
 Route::apiResource('messages', MessageController::class);
 Route::apiResource('replies', ReplyController::class);
+Route::apiResource('news', NewsController::class);
+Route::apiResource('category', CategoryController::class);
+
 Route::post('replies', [ReplyController::class, 'store']);
 Route::post('messages', [MessageController::class, 'store']);
 

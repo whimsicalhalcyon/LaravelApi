@@ -4,3 +4,36 @@
 * {
     font-family: Nunito;
 }
+
+.transition-container {
+    display: flex;
+    gap: 10px;
+}
+
+.card-message.full {
+    flex: 1 1 100%;
+    transition: flex-basis 0.4s ease;
+}
+
+.card-message.shrink {
+    flex: 1 1 50%;
+    transition: flex-basis 0.4s ease;
+}
+
+.slide-panel {
+    flex: 0 0 0%;
+    overflow: hidden;
+    transition: flex-basis 0.4s ease;
+}
+
+.slide-panel.show {
+    flex: 0 0 50%;
+    transition: flex-basis 0.4s ease;
+}
+
+.slide-panel {
+    flex: 0;
+    width: 0;
+    overflow: hidden;
+    transition: width 0.4s ease;
+}
