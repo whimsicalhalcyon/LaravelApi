@@ -24,9 +24,12 @@ class MessageController extends Controller
         $message = new Message();
         $message->title = $request->title;
         $message->message = $request->message;
+        $message->category_id = $request->category_id;
+        $message->email_send = $request->email_send;
+
         $message->save();
 
-        return $message;
+        return response()->json($message, 201);
 
     }
 

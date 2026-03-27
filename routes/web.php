@@ -7,13 +7,10 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\NewsController;
 
 
-Route::apiResource('messages', MessageController::class);
-Route::apiResource('replies', ReplyController::class);
-Route::apiResource('news', NewsController::class);
-Route::apiResource('category', CategoryController::class);
+Route::middleware('api')
+    ->prefix('api')
+    ->group(base_path('routes/api.php'));
 
-Route::post('replies', [ReplyController::class, 'store']);
-Route::post('messages', [MessageController::class, 'store']);
 
 // пути с blade-шаблонами
 Route::get('/', [\App\Http\Controllers\PageController::class, 'index'])->name('welcome');

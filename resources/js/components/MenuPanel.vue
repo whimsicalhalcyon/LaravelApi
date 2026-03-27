@@ -34,7 +34,8 @@ export default {
             </div>
         </div>
         <div class="link-bar flex flex-col mt-6 text-white">
-            <link-component v-if="isAuthenticated" class="mt-4" title="Сообщения" url="#"/>
+            <link-component v-if="isAuthenticated" class="mt-4" title="Входящие сообщения" url="#"/>
+            <link-component v-if="isAuthenticated" class="mt-4" title="Исходящие сообщения" url="#"/>
             <link-component v-if="isAuthenticated" class="mt-4" title="Новости" url="#"/>
             <link-component  v-if="isAuthenticated" class="mt-4" title="Пользователи" url="#"/>
             <link-component v-if="!isAuthenticated" class="mt-4" title="Авторизация" :url="authUrl"/>

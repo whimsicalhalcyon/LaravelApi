@@ -12,6 +12,9 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],server: {
+        proxy: {
+            '/api': 'http://restapi.local'
+        },
         host: true,
         cors: {
             origin: [
