@@ -13,7 +13,11 @@ class MessageController extends Controller
      */
     public function index()
     {
-        return Message::with(['replies'])->get();
+        $messages = Message::with(['replies'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($messages);
     }
 
     /**
@@ -29,7 +33,7 @@ class MessageController extends Controller
 
         $message->save();
 
-        return response()->json($message, 201);
+        return $message;
 
     }
 

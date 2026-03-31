@@ -88,8 +88,6 @@ export default {
                 </select>
             </div>
 
-            <p>{{ currentSort }}</p>
-
             <div class="messages flex">
                 <div class="card-message w-1/2" :class="{'full': !openSlideMessage, 'shrink': openSlideMessage}">
                     <div class="card border border-slate-100 p-3 p-2 flex justify-between" v-for="message in searchMessage" :key="message.id">
@@ -102,7 +100,7 @@ export default {
                     </div>
                 </div>
 
-                <slide-component :open_slide="openSlideMessage"  v-if="openSlideMessage" :message="selectedMessage" @close="openSlideMessage = false" class="w-1/2"></slide-component>
+                <slide-component :open_slide="openSlideMessage"  v-if="openSlideMessage" :message="selectedMessage" @close="openSlideMessage = false"  @deleted="messages = messages.filter(m => m.id !== $event)" class="w-1/2"></slide-component>
             </div>
 
         </div>
