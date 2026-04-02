@@ -1,16 +1,14 @@
-/*@import url('https://fonts.googleapis.com/css2?family=Bigelow+Rules&family=Comfortaa:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');*/
-
 @font-face {
-    font-family: 'Nuntio';
-    src: url('fonts/Nuntio-VariableFont_wght.ttf') format('truetype');
+    font-family: 'Nunito';
+    src: url('fonts/Nunito-VariableFont_wght.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
 }
 
-
 * {
-    font-family: Nunito, sans-serif;
+    font-family: 'Nunito';
 }
+
 
 .transition-container {
     display: flex;

@@ -1,13 +1,13 @@
 @extends('layout.app')
 
-@section('title', 'Главная')
+@section('title', 'Виджеты для вставки')
 
 @section('content')
-    <div id="app"></div>
+    <div id="widget"></div>
 @endsection
 
 @push('scripts')
-    @vite('resources/js/app.js')
+    @vite('resources/js/widget.js')
     <script>
         window.Laravel = {
             signedIn: {{ auth()->check() ? 'true' : 'false' }},

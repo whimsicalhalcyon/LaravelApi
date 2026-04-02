@@ -18,12 +18,14 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/*',
         ]);
 
-        // Можно явно переопределить api группу без CSRF
         $middleware->group('api', [
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
 
     })
+    ->withProviders([
+        \App\Providers\CorsServiceProvider::class,
+    ])
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();

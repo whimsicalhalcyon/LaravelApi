@@ -18,4 +18,20 @@ class PageController extends Controller
     public function authorization() {
         return view('user.authorization');
     }
+
+    public function reply() {
+        return view('emails.reply');
+    }
+
+    public function cors() {
+        return view('cors');
+    }
+
+    public function widget_contact() {
+        return view('widgets.contact');
+    }
+
+    public function iframe_demo() {
+        return view('widgets.iframe_demo');
+    }
 }

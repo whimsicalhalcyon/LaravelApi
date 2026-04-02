@@ -18,7 +18,11 @@ export default {
         return {
             logoutUrl: '/user/logout',
             authUrl: '/user/authorization',
-            regAuth: '/user/registration'
+            regAuth: '/user/registration',
+            newMessageUrl: '/',
+            repliesUrl: '/emails/reply',
+            corsUrl: '/cors',
+            widgetUrl: '/widgets/iframe_demo'
         }
     }
 }
@@ -34,11 +38,10 @@ export default {
             </div>
         </div>
         <div class="link-bar flex flex-col mt-6 text-white">
-            <link-component v-if="isAuthenticated" class="mt-4" title="Входящие сообщения" url="#"/>
-            <link-component v-if="isAuthenticated" class="mt-4" title="Отправленные сообщения" url="#"/>
-            <link-component v-if="isAuthenticated" class="mt-4" title="Новости" url="#"/>
-            <link-component v-if="isAuthenticated" class="mt-4" title="Доступные сайты" url="#"/>
-            <link-component  v-if="isAuthenticated" class="mt-4" title="Пользователи" url="#"/>
+            <link-component v-if="isAuthenticated" class="mt-4" title="Входящие сообщения" :url="newMessageUrl"/>
+            <link-component v-if="isAuthenticated" class="mt-4" title="Отправленные сообщения" :url="repliesUrl"/>
+            <link-component v-if="isAuthenticated" class="mt-4" title="Доступные сайты" :url="corsUrl"/>
+            <link-component v-if="isAuthenticated" class="mt-4" title="Виджеты" :url="widgetUrl"/>
             <link-component v-if="!isAuthenticated" class="mt-4" title="Авторизация" :url="authUrl"/>
             <link-component v-if="!isAuthenticated" class="mt-4" title="Регистрация" :url="regAuth"/>
             <link-component v-if="isAuthenticated" class="mt-4" title="Выход" :url="logoutUrl"/>

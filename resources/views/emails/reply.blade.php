@@ -1,17 +1,18 @@
 @extends('layout.app')
 
-@section('title', 'Главная')
+@section('title', 'Отправленные  ')
 
 @section('content')
-    <div id="app"></div>
+    <div id="reply"></div>
 @endsection
 
 @push('scripts')
-    @vite('resources/js/app.js')
+    @vite('resources/js/reply.js')
     <script>
         window.Laravel = {
             signedIn: {{ auth()->check() ? 'true' : 'false' }},
-            user: @json(auth()->user())
+            user: @json(auth()->user()),
+            messageId: {{ $messageId ?? 'null' }}
         }
     </script>
 @endpush

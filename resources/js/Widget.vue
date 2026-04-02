@@ -17,20 +17,10 @@ export default {
             currentUser: window.Laravel.user,
             currentSearch: '',
             currentSort: '',
+            iframeCode: `<iframe src="/widgets/contact" width="100%" height="500" frameborder="0" style="border: 1px solid #e2e8f0; border-radius: 0.5rem;" title="Форма обратной связи"></iframe>`
         }
     },
     methods: {
-        async fetchData() {
-            try {
-                const res = await fetch('http://restapi.local/api/messages')
-                if (!res.ok) throw new Error('Не загружено')
-                this.messages = await res.json()
-                console.log('Загружено сообщений:', this.messages.length)
-            } catch (error) {
-                console.error(error)
-                alert('Не удалось загрузить данные')
-            }
-        },
 
         handleMessageDelete(messageId) {
             this.messages = this.messages.filter(m => m.id !== messageId)
@@ -50,9 +40,14 @@ export default {
                 minute: '2-digit'
             });
         },
-    },
-    mounted() {
-        this.fetchData()
+        copyIframeCode() {
+            navigator.clipboard.writeText(this.iframeCode).then(() => {
+                alert('Код iframe скопирован!');
+            }).catch(() => {
+                alert('Не удалось скопировать код');
+            });
+        },
+
     },
     computed: {
         searchMessage() {
@@ -92,9 +87,32 @@ export default {
         <menu-panel open-panel="true" :user="currentUser" :isAuthenticated="isAuthenticated"/>
 
         <div class="main w-full p-5">
-            <filter-component v-model:search="currentSearch" v-model:sort.lazy="currentSort"/>
+            <div class="widget">
+                <div class="card bg-base-100 w-2xl border border-slate-100 p-4 rounded-sm">
+                    <div class="card-body">
+                        <h2 class="card-title">Форма</h2>
 
-            <new-message-component :messages="searchMessage" :search="currentSearch" :sort="currentSort" @message:delete="handleMessageDelete" @message-selected="handleMessageSelected"/>
+                        <div class="mt-4">
+                            <div class="bg-gray-50 rounded-lg p-2 mb-2">
+                                <pre class="text-sm whitespace-pre-wrap font-mono">{{iframeCode}}</pre>
+                            </div>
+                            <iframe
+                                src="/widgets/contact"
+                                width="100%"
+                                height="400"
+                                frameborder="0"
+                                style="border: 1px solid #e2e8f0; border-radius: 0.5rem;"
+                                title="Форма обратной связи"
+                                class="p-5"
+                            ></iframe>
+                        </div>
+
+                        <div class="card-actions justify-end">
+                            <button @click="copyIframeCode" class="btn btn-primary p-2 bg-slate-400 text-white rounded-sm mt-3">Скопировать код</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
