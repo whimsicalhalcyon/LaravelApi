@@ -73,8 +73,8 @@ export default{
                             <p class="text-gray-700 text-sm">{{message.email_send}}</p>
                         </div>
                     </div>
-                    <div class="message-text border-l-[3px] rounded-md p-3 border-slate-400 bg-slate-100 w-full block-inline">
-                        <p class="message text-md">{{message.message}}</p>
+                    <div class="message-text border-l-[3px] rounded-md p-3 border-slate-400 bg-slate-100 block-inline max-w-">
+                        <p class="message text-md">{{message.message.slice(0, 120)}}...</p>
                     </div>
                 </div>
                 <p class="date text-sm">{{formatDate(message.created_at)}}</p>

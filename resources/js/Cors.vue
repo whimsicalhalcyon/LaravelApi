@@ -22,12 +22,12 @@ export default {
             },
             loading: false,
             showModal: false,
-            selectedUrl: null  // Для хранения выбранного URL
+            selectedUrl: null
         }
     },
 
     computed: {
-        searchMessage() {
+        searchUrl() {
             let result = [...this.urls];
 
             if (this.currentSearch) {
@@ -186,10 +186,10 @@ export default {
             </form>
 
             <div class="sites mt-6 space-y-3">
-                <div v-for="site in urls" :key="site.id" class="sites-card bg-white rounded-lg border border-slate-200 p-4 flex items-center justify-between">
+                <div v-for="site in searchUrl" :key="site.id" class="sites-card bg-white rounded-lg border border-slate-200 p-4 flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-slate-700 font-medium">{{ site.url }}</p>
-                        <p class="text-xs text-slate-400 mt-1">Добавлен: {{ formatDate(site.created_at) }}</p>
+                        <p class="text-xs text-slate-400 mt-1">Добавлен: {{formatDate(site.created_at)}}</p>
                     </div>
                     <div class="flex gap-2">
                         <button @click="openEditModal(site)" class="p-2 rounded-md border border-slate-200 bg-white cursor-pointer" title="Редактировать">
@@ -234,9 +234,9 @@ export default {
 
                 <template #footer>
                     <div class="flex gap-2">
-                        <button @click="showModal = false" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">Отмена
+                        <button @click="showModal = false" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer">Отмена
                         </button>
-                        <button @click="saveEditedUrl" class="px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors" :disabled="!selectedUrl?.url.trim()">
+                        <button @click="saveEditedUrl" class="px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors cursor-pointer" :disabled="!selectedUrl?.url.trim()">
                             Сохранить
                         </button>
                     </div>

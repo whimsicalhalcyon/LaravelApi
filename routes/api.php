@@ -13,4 +13,8 @@ Route::apiResource('news', NewsController::class);
 Route::apiResource('category', CategoryController::class);
 Route::apiResource('cors', CorsUrlController::class);
 
+//Route::post('/messages', [MessageController::class, 'store'])
+//    ->middleware('dynamic.cors');
+
+
 Route::get('/messages-api', [MessageController::class, 'index']);

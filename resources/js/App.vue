@@ -17,6 +17,8 @@ export default {
             currentUser: window.Laravel.user,
             currentSearch: '',
             currentSort: '',
+            currentPage: 1,
+            perPage: 5
         }
     },
     methods: {
@@ -40,6 +42,7 @@ export default {
         handleMessageSelected(message) {
             console.log('Выбрано сообщение:', message)
         },
+
         formatDate(date) {
             if (!date) return 'Дата неизвестна';
             return new Date(date).toLocaleString('ru-RU', {
@@ -82,19 +85,33 @@ export default {
             }
 
             return result;
+        },
+
+        getPaginateMessage() {
+            const start = (this.currentPage - 1) * this.perPage
+            return this.searchMessage.slice(start, start + this.perPage)
+        },
+
+        getTotalPages() {
+            return Math.ceil(this.searchMessage.length/this.perPage)
         }
     }
 }
 </script>
 
 <template>
-    <div class="container flex">
+    <div class="container flex h-[100vh]">
         <menu-panel open-panel="true" :user="currentUser" :isAuthenticated="isAuthenticated"/>
 
         <div class="main w-full p-5">
             <filter-component v-model:search="currentSearch" v-model:sort.lazy="currentSort"/>
+            <new-message-component :messages="getPaginateMessage" :search="currentSearch" :sort="currentSort" @message:delete="handleMessageDelete" @message-selected="handleMessageSelected"/>
 
-            <new-message-component :messages="searchMessage" :search="currentSearch" :sort="currentSort" @message:delete="handleMessageDelete" @message-selected="handleMessageSelected"/>
+            <div class="flex justify-center gap-2 mt-4">
+                <button  v-for="page in getTotalPages"  :key="page" @click="currentPage = page" :class="['px-3 py-1 rounded transition cursor-pointer', currentPage === page ? 'bg-slate-200 text-black cursor-pointer' : 'bg-slate-300 hover:bg-slate-300 cursor-pointer' ]">
+                    {{ page }}
+                </button>
+            </div>
         </div>
     </div>
 </template>

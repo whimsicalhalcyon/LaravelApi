@@ -94,7 +94,7 @@ export default {
 </script>
 
 <template>
-    <div class="container flex">
+    <div class="container flex h-[100vh]">
         <menu-panel open-panel="true" :user="currentUser" :isAuthenticated="isAuthenticated"></menu-panel>
 
         <div class="main w-full p-5">
@@ -142,7 +142,7 @@ export default {
 
                         <div class="mb-4">
                             <p class="text-sm text-gray-500 mb-2">Текст ответа:</p>
-                            <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="bg-slate-50 rounded-lg p-4 border-l-[3px] border-slate-400">
                                 <p class="text-gray-700 whitespace-pre-wrap">{{ reply.message}}</p>
                             </div>
                         </div>

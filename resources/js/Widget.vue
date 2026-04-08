@@ -17,29 +17,10 @@ export default {
             currentUser: window.Laravel.user,
             currentSearch: '',
             currentSort: '',
-            iframeCode: `<iframe src="/widgets/contact" width="100%" height="500" frameborder="0" style="border: 1px solid #e2e8f0; border-radius: 0.5rem;" title="Форма обратной связи"></iframe>`
+            iframeCode: `<iframe src="http://restapi.local/widget/contact" width="100%" height="500" frameborder="0" style="border: 1px solid #e2e8f0; border-radius: 0.5rem;" title="Форма обратной связи"></iframe>`
         }
     },
     methods: {
-
-        handleMessageDelete(messageId) {
-            this.messages = this.messages.filter(m => m.id !== messageId)
-            console.log('Сообщение удалено, осталось:', this.messages.length)
-        },
-
-        handleMessageSelected(message) {
-            console.log('Выбрано сообщение:', message)
-        },
-        formatDate(date) {
-            if (!date) return 'Дата неизвестна';
-            return new Date(date).toLocaleString('ru-RU', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        },
         copyIframeCode() {
             navigator.clipboard.writeText(this.iframeCode).then(() => {
                 alert('Код iframe скопирован!');
@@ -49,36 +30,6 @@ export default {
         },
 
     },
-    computed: {
-        searchMessage() {
-            let result = [...this.messages];
-
-            if (this.currentSearch) {
-                const search = this.currentSearch.toLocaleLowerCase();
-                result = result.filter(message => {
-                    return (
-                        (message.title || '').toLocaleLowerCase().includes(search) ||
-                        (message.message || '').toLocaleLowerCase().includes(search) ||
-                        (message.email_send || '').toLocaleLowerCase().includes(search)
-                    );
-                });
-            }
-
-            if (this.currentSort === 'created_at') {
-                result.sort((a, b) => {
-                    return new Date(b.created_at) - new Date(a.created_at);
-                });
-            }
-
-            if (this.currentSort === 'title') {
-                result.sort((a, b) => {
-                    return (a.title || '').localeCompare(b.title || '');
-                });
-            }
-
-            return result;
-        }
-    }
 }
 </script>
 
@@ -90,7 +41,7 @@ export default {
             <div class="widget">
                 <div class="card bg-base-100 w-2xl border border-slate-100 p-4 rounded-sm">
                     <div class="card-body">
-                        <h2 class="card-title">Форма</h2>
+                        <h2 class="card-title">Форма обратной связи</h2>
 
                         <div class="mt-4">
                             <div class="bg-gray-50 rounded-lg p-2 mb-2">

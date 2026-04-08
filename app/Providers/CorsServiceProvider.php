@@ -9,17 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class CorsServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap services.
-     */
     public function boot(): void
     {
         // Получаем разрешенные сайты из БД с кэшированием
@@ -29,12 +23,8 @@ class CorsServiceProvider extends ServiceProvider
         Config::set('cors.allowed_origins', $allowedOrigins);
     }
 
-    /**
-     * Получение разрешенных сайтов из базы данных
-     */
     private function getAllowedOriginsFromDatabase(): array
     {
-
         return Cache::remember('cors_allowed_origins', 3600, function () {
             try {
                 $sites = DB::table('cors_urls')
@@ -45,31 +35,26 @@ class CorsServiceProvider extends ServiceProvider
                     'http://localhost:3000',
                     'http://localhost:8080',
                     'http://localhost:8000',
+                    'http://localhost:5173', // добавляем локальный фронтенд
                 ];
 
                 $allOrigins = array_unique(array_merge($sites, $defaultOrigins));
+                return array_map(fn($url) => rtrim($url, '/'), $allOrigins);
 
-
-                $allOrigins = array_map(function($url) {
-                    return rtrim($url, '/');
-                }, $allOrigins);
-
-                return $allOrigins;
             } catch (\Exception $e) {
                 return $this->getDefaultOrigins();
             }
         });
     }
 
-    /**
-     * Дефолтные разрешенные источники
-     */
     private function getDefaultOrigins(): array
     {
         return [
             'http://localhost:3000',
             'http://localhost:8080',
             'http://localhost:8000',
+            'http://localhost:5173',
+            'https://zdrav-nnov.mznn.ru'
         ];
     }
 }

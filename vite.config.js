@@ -16,6 +16,12 @@ export default defineConfig({
             '/api': 'http://restapi.local'
         },
         host: true,
+        allowedHosts: [
+            'ab127ef4baff27.lhr.life',
+            '1630c1342be012.lhr.life',
+            '50890b6084e3b6.lhr.life',
+            'f8617681d5b7fb.lhr.life'
+        ],
         cors: {
             origin: [
                 'http://restapi.local',

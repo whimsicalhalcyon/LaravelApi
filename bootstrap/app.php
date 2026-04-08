@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Foundation\Application;
-use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Http\Middleware\HandleCors;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -18,6 +19,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/*',
         ]);
 
+        // Важно: CORS middleware первым
+        $middleware->prepend(HandleCors::class);
+
         $middleware->group('api', [
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
@@ -28,4 +32,5 @@ return Application::configure(basePath: dirname(__DIR__))
     ])
     ->withExceptions(function (Exceptions $exceptions): void {
         //
-    })->create();
+    })
+    ->create();

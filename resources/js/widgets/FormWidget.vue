@@ -51,15 +51,8 @@ export default {
 
 <template>
     <div class="form-container">
-        <h1>Отправить новое сообщение</h1>
-
         <form @submit.prevent="sendForm">
-            <input
-                type="text"
-                v-model="form.title"
-                placeholder="Заголовок"
-                required
-            />
+            <input type="text" v-model="form.title" placeholder="Название" required/>
 
             <select v-model="form.category_id">
                 <option value="">Выберите категорию</option>
@@ -68,23 +61,13 @@ export default {
                 <option value="3">Предложение</option>
             </select>
 
-            <input
-                type="email"
-                v-model="form.email_send"
-                placeholder="Ваш Email"
-                required
-            />
+            <input type="email" v-model="form.email_send" placeholder="Ваш email" required/>
 
-            <textarea
-                v-model="form.message"
-                placeholder="Сообщение"
-                rows="6"
-                required
-            ></textarea>
+            <textarea v-model="form.message" placeholder="Сообщение" rows="6" required></textarea>
 
             <button type="submit">Отправить сообщение</button>
         </form>
-        <p v-if="error" class="error">{{ error }}</p>
+        <p v-if="error" class="error">{{error}}</p>
     </div>
 </template>
 
@@ -109,7 +92,7 @@ input, textarea, select {
 button {
     background-color: rgb(0, 78, 166);
     width: 200px;
-    padding: 15px 10px;
+    padding: 10px 5px;
     color: white;
     border: none;
     cursor: pointer;

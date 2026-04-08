@@ -85,16 +85,20 @@
 </script>
 
 <template>
-    <div class="slide p-7">
-        <div class="btn-close flex items-end justify-end">
-            <button class="close-btn cursor-pointer" @click="$emit('close')">✕</button>
+    <div class="slide p-7 border-l border-slate-100 rounded-md">
+        <div class="head-slide flex items-center justify-between mb-5">
+            <p class="text-lg text-bold">Ответ на сообщение</p>
+            <div class="btn-close flex items-end justify-end">
+                <button class="close-btn cursor-pointer" @click="$emit('close')">✕</button>
+            </div>
         </div>
 
         <form  @submit.prevent="postReply">
-            <p class="text-lg mb-4">Ответ на сообщение</p>
             <div class="head-email">
                 <div class="send-email flex w-full flex-col gap-4">
-                    <input type="text" placeholder="Кому" class="border border-slate-100 rounded-md p-3 w-full" :value="message?.email_send"></div>
+                    <label for="email_send">Кому</label>
+                    <input type="text" placeholder="Кому" class="border border-slate-100 rounded-md p-3 w-full" :value="message?.email_send">
+                </div>
             </div>
             <div class="user-mail mt-5">
                 <label class="" for="message">Текст сообщения</label>
@@ -102,7 +106,7 @@
                     {{message?.message}}
                 </div>
             </div>
-            <div class="body-email mt-12 ">
+            <div class="body-email mt-12 gap-4">
                 <label class="" for="message">Введите текст сообщения</label>
                 <input type="text" v-model="title" placeholder="Текст ответа" class="border border-slate-100 rounded-md p-3 w-full">
                 <textarea class="w-full border border-slate-100 rounded-md p-3 mt-3" name="message" v-model="reply"></textarea>
@@ -119,7 +123,6 @@
             </div>
 
         </form>
-<!--        <button class="p-2 text-white bg-red-500 rounded-md cursor-pointer mt-4" @click="deleteMessage" type="submit">Удалить</button>-->
     </div>
 </template>
 

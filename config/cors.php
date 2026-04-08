@@ -13,12 +13,7 @@ return [
 
     'paths' => ['api/*'],
     'allowed_methods' => ['*'],
-    'allowed_origins' => [
-        'http://localhost:3000',
-        'http://localhost:8080',
-        'http://localhost:8000',
-        'http://restapi.local',
-    ],
+    'allowed_origins' => [],
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],
