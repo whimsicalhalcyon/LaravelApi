@@ -63,21 +63,31 @@ export default{
     <div class="messages flex border border-slate-100 rounded-md">
         <div class="card-message w-1/2" :class="{'full': !openSlideMessage, 'shrink': openSlideMessage}">
             <div class="card border-b border-slate-100 p-3 p-2 flex justify-between" v-for="message in messages" :key="message.id">
-                <div class="message-user">
-                    <a class="title font-bold text-lg decoration-0 cursor-pointer" @click="openSlide(message)">{{message.title}}</a>
-                    <div class="mb-4 flex items-start space-x-2 mt-2">
-                        <svg class="w-4 h-4 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
-                        </svg>
-                        <div class="flex items-center">
-                            <p class="text-gray-700 text-sm">{{message.email_send}}</p>
+                <div class="card border-b border-slate-100 p-2 flex w-full">
+                    <div class="message-user flex flex-col flex-1">
+                        <div class="title flex items-center justify-between">
+                            <a class="title font-bold text-lg decoration-0 cursor-pointer" @click="openSlide(message)">
+                                {{ message.title }}
+                            </a>
+                            <p class="date text-sm ml-4 flex-shrink-0">{{ formatDate(message.created_at) }}</p>
+                        </div>
+
+                        <div class="mb-2 flex items-start space-x-2 mt-2">
+                            <svg class="w-4 h-4 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+                            </svg>
+                            <div class="flex items-center">
+                                <p class="text-gray-700 text-sm">{{ message.email_send }}</p>
+                            </div>
+                        </div>
+                        <div class="message-text border-l-4 rounded-md p-3 border-slate-400 bg-slate-100 w-full">
+                            <p class="message text-md">
+                                {{ message.message.length > 200 ? message.message.slice(0, 130) + '...' : message.message }}
+                            </p>
                         </div>
                     </div>
-                    <div class="message-text border-l-[3px] rounded-md p-3 border-slate-400 bg-slate-100 block-inline max-w-">
-                        <p class="message text-md">{{message.message.slice(0, 120)}}...</p>
-                    </div>
+
                 </div>
-                <p class="date text-sm">{{formatDate(message.created_at)}}</p>
             </div>
         </div>
 
