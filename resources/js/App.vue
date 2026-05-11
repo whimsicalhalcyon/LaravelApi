@@ -17,6 +17,7 @@ export default {
             currentUser: window.Laravel.user,
             currentSearch: '',
             currentSort: '',
+            currentCategory: '',
             currentPage: 1,
             perPage: 5
         }
@@ -78,6 +79,12 @@ export default {
                 });
             }
 
+            if (this.currentCategory) {
+                result = result.filter(m =>
+                    String(m.category_id) === String(this.currentCategory)
+                );
+            }
+
             if (this.currentSort === 'title') {
                 result.sort((a, b) => {
                     return (a.title || '').localeCompare(b.title || '');
@@ -104,7 +111,7 @@ export default {
         <menu-panel open-panel="true" :user="currentUser" :isAuthenticated="isAuthenticated"/>
 
         <div class="main w-full p-5">
-            <filter-component v-model:search="currentSearch" v-model:sort.lazy="currentSort"/>
+            <filter-component v-model:search="currentSearch" v-model:sort.lazy="currentSort" v-model:category="currentCategory"/>
             <new-message-component :messages="getPaginateMessage" :search="currentSearch" :sort="currentSort" @message:delete="handleMessageDelete" @message-selected="handleMessageSelected"/>
 
             <div class="flex justify-center gap-2 mt-4">

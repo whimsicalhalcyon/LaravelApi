@@ -14,12 +14,18 @@
                 @method('post')
                 <div class="mb-4">
                     <label class="block text-sm mb-1">Email</label>
-                    <input type="email" name="email" class="w-full border border-gray-300 p-2 rounded-md outline-none">
+                    <input type="email" name="email" class="w-full border border-gray-300 p-2 rounded-md outline-none @error('login') border-red-500 focus:border-red-500 bg-red-50 @enderror">
+                    @error('email')
+                    <p class="mt-1 text-red-600 text-sm font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mb-6">
                     <label class="block text-sm mb-1">Пароль</label>
-                    <input type="password" name="password" class="w-full border border-gray-300 p-2 rounded-md outline-none">
+                    <input type="password" name="password" class="w-full border border-gray-300 p-2 rounded-md outline-none @error('login') border-red-500 focus:border-red-500 bg-red-50 @enderror">
+                    @error('password')
+                    <p class="mt-1 text-red-600 text-sm font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <button class="w-full bg-slate-400 text-white p-2 rounded-md">Войти</button>

@@ -1,7 +1,7 @@
 <script>
 import SlideComponent from "./SlideComponent.vue";
 
-export default{
+export default {
     components: {
         SlideComponent
     },
@@ -9,7 +9,7 @@ export default{
         messages: {
             type: Array,
             required: true,
-            default: ()=>[]
+            default: () => []
         },
         search: {
             type: String,
@@ -28,19 +28,23 @@ export default{
             selectedMessage: null
         }
     },
+
     methods: {
         openSlide(message) {
             this.selectedMessage = message;
             this.openSlideMessage = true;
-            this.$emit('message-selected', message)
+            this.$emit('message-selected', message);
         },
+
         closeSlide() {
             this.openSlideMessage = false;
             this.selectedMessage = null;
         },
-        deleteMessage(messegeId) {
-            this.$emit('message:delete', messegeId)
+
+        deleteMessage(messageId) {
+            this.$emit('message:delete', messageId);
         },
+
         formatDate(date) {
             if (!date) return 'Дата неизвестна';
             return new Date(date).toLocaleString('ru-RU', {
@@ -51,50 +55,101 @@ export default{
                 minute: '2-digit'
             });
         },
-    },
 
-    computed: {
+        getMessageType(categoryId) {
+            switch (categoryId) {
+                case 1:
+                    return 'Ошибка';
+                case 2:
+                    return 'Обращение';
+                case 3:
+                    return 'Вопрос';
+                default:
+                    return 'Неизвестно';
+            }
+        },
+
+        getMessageTypeClass(categoryId) {
+            switch (categoryId) {
+                case 1:
+                    return 'bg-red-100 text-red-700';
+                case 2:
+                    return 'bg-blue-100 text-blue-700';
+                case 3:
+                    return 'bg-green-100 text-green-700';
+                default:
+                    return 'bg-gray-100 text-gray-700';
+            }
+        }
     }
-
 }
 </script>
 
 <template>
-    <div class="messages flex border border-slate-100 rounded-md">
-        <div class="card-message w-1/2" :class="{'full': !openSlideMessage, 'shrink': openSlideMessage}">
-            <div class="card border-b border-slate-100 p-3 p-2 flex justify-between" v-for="message in messages" :key="message.id">
-                <div class="card border-b border-slate-100 p-2 flex w-full">
-                    <div class="message-user flex flex-col flex-1">
-                        <div class="title flex items-center justify-between">
-                            <a class="title font-bold text-lg decoration-0 cursor-pointer" @click="openSlide(message)">
-                                {{ message.title }}
-                            </a>
-                            <p class="date text-sm ml-4 flex-shrink-0">{{ formatDate(message.created_at) }}</p>
-                        </div>
+    <div class="messages flex border border-gray-200 rounded-2xl overflow-hidden bg-white">
+        <div
+            :class="{
+                'w-full transition-all duration-300 ease-in-out': !openSlideMessage,
+                'w-1/2 transition-all duration-300 ease-in-out': openSlideMessage
+            }"
+        >
+            <div
+                v-for="message in messages"
+                :key="message.id"
+                @click="openSlide(message)"
+                class="group border-b border-gray-200 last:border-b-0 p-5 cursor-pointer"
+            >
+                <div class="flex items-start justify-between gap-4">
+                    <a class="font-semibold text-lg text-gray-900 group-hover:text-violet-700 transition-colors duration-200 line-clamp-1 flex-1">
+                        {{ message.title }}
+                    </a>
 
-                        <div class="mb-2 flex items-start space-x-2 mt-2">
-                            <svg class="w-4 h-4 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
-                            </svg>
-                            <div class="flex items-center">
-                                <p class="text-gray-700 text-sm">{{ message.email_send }}</p>
-                            </div>
-                        </div>
-                        <div class="message-text border-l-4 rounded-md p-3 border-slate-400 bg-slate-100 w-full">
-                            <p class="message text-md">
-                                {{ message.message.length > 200 ? message.message.slice(0, 130) + '...' : message.message }}
-                            </p>
-                        </div>
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="text-xs px-2 py-1 rounded-full"
+                            :class="getMessageTypeClass(message.category_id)"
+                        >
+                            {{ getMessageType(message.category_id) }}
+                        </span>
+
+                        <p class="text-sm text-gray-500 whitespace-nowrap flex-shrink-0 mt-1">
+                            {{ formatDate(message.created_at) }}
+                        </p>
                     </div>
+                </div>
 
+                <div class="flex items-center gap-2 mt-3 text-sm">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-4 h-4 text-gray-400 flex-shrink-0"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M3 8l7.89 5.26a2.01 2.01 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2"/>
+                    </svg>
+                    <p class="text-gray-600 truncate">{{ message.email_send }}</p>
+                </div>
+
+                <div class="mt-3 pl-6 border-l-4 border-gray-300 bg-gray-50 rounded-xl p-4 text-sm text-gray-700 leading-relaxed">
+                    {{ message.message.length > 200
+                    ? message.message.slice(0, 135) + '...'
+                    : message.message }}
                 </div>
             </div>
         </div>
 
-        <slide-component :open_slide="openSlideMessage"  v-if="openSlideMessage" :message="selectedMessage" @close="closeSlide"  @deleted="deleteMessage" class="w-1/2"></slide-component>
+        <SlideComponent
+            v-if="openSlideMessage"
+            :open_slide="openSlideMessage"
+            :message="selectedMessage"
+            @close="closeSlide"
+            @deleted="deleteMessage"
+            class="w-1/2 border-l border-gray-200 bg-white"
+        />
     </div>
 </template>
 
 <style scoped>
-
 </style>

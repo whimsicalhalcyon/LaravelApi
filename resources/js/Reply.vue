@@ -118,11 +118,20 @@ export default {
                                     </svg>
                                 </div>
                                 <div>
-                                    <h3 class="font-semibold text-gray-800">{{ reply.title || 'Без темы' }}</h3>
+                                    <h3 class="font-semibold text-gray-800 hover:text-violet-700 transition-colors duration-200 line-clamp-1 flex-1 cursor-pointer">{{ reply.title || 'Без темы' }}</h3>
                                 </div>
                             </div>
-                            <div class="text-right">
+                            <div class="text-right flex items-center">
                                 <p class="text-sm text-gray-600">{{ formatDate(reply.created_at) }}</p>
+                                <div class="flex items-end justify-end ms-5">
+                                    <button
+                                        @click="deleteReply(reply.id)"
+                                        class="p-1.5 rounded-lg border border-gray-200 bg-white transition-all duration-200">
+                                        <svg class="w-4 h-4 text-red-400 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -145,15 +154,6 @@ export default {
                             <div class="bg-slate-50 rounded-lg p-4 border-l-[3px] border-slate-400">
                                 <p class="text-gray-700 whitespace-pre-wrap">{{ reply.message}}</p>
                             </div>
-                        </div>
-                        <div class="flex items-end justify-end">
-                            <button
-                                @click="deleteReply(reply.id)"
-                                class="p-1.5 rounded-lg border border-gray-200 bg-white transition-all duration-200">
-                                <svg class="w-4 h-4 text-red-400 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                                </svg>
-                            </button>
                         </div>
                     </div>
 
